@@ -24,13 +24,14 @@
                     <form method="post" action="/upload" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="dictionary">Choose file</label>
-                        <input type="file" name="dictionary" class="form-control-file" id="dictionary" aria-describedby="fileHelp">
+                        <input type="file" name="dictionary" class="form-control-file" id="dictionary" aria-describedby="fileHelp" accept="application/xml">
                     </div>
                     <input type="submit" class="btn btn-success">
                     </form>
                 </div>
 
                 <div class="card-footer">
+                <%= typeof result != 'undefined' && result ? result : '' %>
                 </div>
             </div>
         </div>
