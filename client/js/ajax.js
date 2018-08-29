@@ -7,7 +7,8 @@ $(document).ready(function () {
                 method: 'POST',
                 data: {word},
                 success: function (data) {
-                    $('.card-footer').html(data)
+                    $('.card-footer pre').html(data);
+                    console.log(data);
                 },
                 error: function (err) {
                     // console.log(err.statusText);
