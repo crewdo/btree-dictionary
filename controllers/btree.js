@@ -28,16 +28,22 @@ function convert(callback) {
 }
 
 function buildTree(converted, callback) {
-    //TODO: Build Tree here
-    var bTree = {};
-    converted.map(function (v,i,a) {
-        words = a[i].word[0];
-        for(var t = 0;  t < words.length; t++){
-            var cur = 'bTree.' + words.substring(0,t+1).split('').join('.');
-            var pre = cur.slice(0,-2);
-            var k = words[t];
-            if(!pre.hasOwnProperty(k)){
-                eval(cur + '= {' + k + ':k}');
+    let bTree = {};
+    converted.map(function (v, i, a) {
+        words = a[i].word[0]
+            .replace(/\W*\d*(logic học)*/g,'');
+        for (let t = 0; t < words.length; t++) {
+                let leaf = 'bTree.' + words.substring(0, t + 1).split('').join('.');
+                let node = eval(leaf.slice(0, -2));
+            if (!node.hasOwnProperty(words[t])) {
+                let last = {def: a[i].meaning[0]};
+                for (let j = words.length-1; j > t; j--) {
+                    if(typeof words[j] === 'undefined'){
+                        continue;
+                    }
+                    eval('last = {' + words[j] + ': last}');
+                }
+                eval(leaf + ' = {' + words[t] + ':' + JSON.stringify(last) + '}');
             }
         }
     });
@@ -46,6 +52,7 @@ function buildTree(converted, callback) {
 }
 
 function saveTree(bTree, callback) {
+    bTree = bTree.h.e.l.l.o.o.def;
     const content = JSON.stringify(bTree);
     // writeStream.on('finish', function () {
     // });
