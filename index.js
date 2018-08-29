@@ -8,7 +8,7 @@ const express = require('express');
 
 let app = express();
 
-app.listen(3000);
+app.listen(80);
 app.use(express.static(path.join(__dirname, 'client')));
 let parseForm = bodyParser.urlencoded({
     extended: false,
