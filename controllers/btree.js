@@ -34,7 +34,7 @@ exports.initialize = function (req, res) {
  */
 
 function convert(callback) {
-    var parser = new xml2js.Parser();
+    let parser = new xml2js.Parser();
     fs.readFile('./xml/' + config.get('newest'), function (err, data) {
         parser.parseString(data, function (err, result) {
             callback(null, result.dictionary.record);
@@ -77,19 +77,6 @@ function buildTree(converted, callback) {
 
     callback(null, bTree);
 }
-
-/**
- * Build Leaf item when Tree node don't have current leaf
- *
- * @param  words
- * @param tail
- * @param index
- * @return callback with object json from xml
- */
-//
-// function buildLast(words, tail, index) {
-//
-// }
 
 /**
  * Convert the xml file to json

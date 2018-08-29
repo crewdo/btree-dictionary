@@ -1,16 +1,16 @@
 const btree = require('./controllers/btree');
 const handle = require('./controllers/handle');
 const path = require('path');
-var bodyParser = require('body-parser');
-var multer = require('multer');
-var config = require('./lib/ramcache');
-var express = require('express');
+const bodyParser = require('body-parser');
+const multer = require('multer');
+const config = require('./lib/ramcache');
+const express = require('express');
 
-var app = express();
+let app = express();
 
 app.listen(3000);
 app.use(express.static(path.join(__dirname, 'client')));
-var parseForm = bodyParser.urlencoded({
+let parseForm = bodyParser.urlencoded({
     extended: false,
     limit: '200mb',
 });
@@ -18,7 +18,7 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 
 //Init save xml
-var storage = multer.diskStorage({
+let storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './xml');
     },
@@ -27,7 +27,7 @@ var storage = multer.diskStorage({
         cb(null, file.originalname);
     },
 });
-var upload = multer({storage});
+let upload = multer({storage});
 
 //Main routes
 app.get("/", function (req, res) {
