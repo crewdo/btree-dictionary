@@ -7,7 +7,8 @@
         .card {
             margin-top: 20px;
         }
-        .card-header{
+
+        .card-header {
             background: #ff615f;
         }
     </style>
@@ -22,16 +23,17 @@
                 </div>
                 <div class="card-body">
                     <form method="post" action="/upload" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="dictionary">Choose file</label>
-                        <input type="file" name="dictionary" class="form-control-file" id="dictionary" aria-describedby="fileHelp" accept="application/xml">
-                    </div>
-                    <input type="submit" class="btn btn-success">
+                        <div class="form-group">
+                            <label for="dictionary">Choose file</label>
+                            <input type="file" name="dictionary" class="form-control-file" id="dictionary"
+                                   aria-describedby="fileHelp" accept="application/xml">
+                        </div>
+                        <input type="submit" class="btn btn-success">
                     </form>
                 </div>
 
                 <div class="card-footer">
-                <%= typeof result != 'undefined' && result ? result : '' %>
+                    <b>  <%= typeof result != 'undefined' && result ? result : '' %> </b>
                 </div>
             </div>
         </div>

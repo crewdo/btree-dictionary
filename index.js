@@ -3,7 +3,7 @@ const handle = require('./controllers/handle');
 const path = require('path');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-var config = require('./lib/config');
+var config = require('./lib/ramcache');
 var express = require('express');
 
 var app = express();
@@ -17,6 +17,7 @@ var parseForm = bodyParser.urlencoded({
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+//Init save xml
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './xml');
