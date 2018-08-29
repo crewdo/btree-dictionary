@@ -37,5 +37,6 @@ app.get("/", function (req, res) {
 app.get("/upload", function (req, res) {
     res.render('upload');
 });
+
 app.post("/upload", upload.single('dictionary'), btree.initialize);
 app.post('/', parseForm, handle.search);
