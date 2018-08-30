@@ -8,8 +8,8 @@ const dictionary = require('../lib/ramcache');
  * @return Word's definition.
  */
 exports.search = function (req, res) {
-    const word = req.body.word || {};
-    word.replace(/\W*\d*/g, '');
+    let matchWord = req.body.word || {};
+    let word = matchWord.replace(/\W*\d*/g, '_');
 
     let dict = dictionary.get('dict') || {};
     let defPattern = 'dict.' + word.split('').join('.') + '.def';

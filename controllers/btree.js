@@ -54,7 +54,8 @@ function buildTree(converted, callback) {
     let bTree = {};
     converted.map(function (v, i, a) {
         words = a[i].word[0]
-            .replace(/\W*\d*(logic học)*/g, '');
+            .replace(/\W*\d*/g, '_')
+            .replace('(logic học)', '');
         for (let t = 0; t < words.length; t++) {
             //Get leaf to check.
             let leaf = 'bTree.' + words.substring(0, t + 1).split('').join('.');
