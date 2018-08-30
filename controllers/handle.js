@@ -1,4 +1,5 @@
 const dictionary = require('../lib/ramcache');
+const { convertString } = require('./btree');
 
 /**
  * Search word by Ajax
@@ -9,7 +10,7 @@ const dictionary = require('../lib/ramcache');
  */
 exports.search = function (req, res) {
     let matchWord = req.body.word || {};
-    let word = matchWord.replace(/\W*\d*/g, '_');
+    let word = convertString(matchWord);
 
     let dict = dictionary.get('dict') || {};
     let defPattern = 'dict.' + word.split('').join('.') + '.def';

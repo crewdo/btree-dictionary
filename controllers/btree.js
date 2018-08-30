@@ -13,7 +13,6 @@ const config = require('../lib/ramcache');
 exports.initialize = function (req, res) {
 
     async.waterfall([
-
             convert,
             buildTree,
             saveTree
@@ -43,7 +42,7 @@ function convert(callback) {
 }
 
 /**
- * Build Btree from json
+ * Build Btree from json. (Main function)
  *
  * @param  converted
  * @param  callback
@@ -53,31 +52,66 @@ function convert(callback) {
 function buildTree(converted, callback) {
     let bTree = {};
     converted.map(function (v, i, a) {
-        words = a[i].word[0]
-            .replace(/\W*\d*/g, '_')
-            .replace('(logic học)', '');
+        words = handleString(a[i].word[0]);
+        //word = "hello"
         for (let t = 0; t < words.length; t++) {
-            //Get leaf to check.
             let leaf = 'bTree.' + words.substring(0, t + 1).split('').join('.');
-            //Get node of current leaf.
+            //leaf = bTree.h.e.l.l.o
             let node = eval(leaf.slice(0, -2));
-            //If node don't have leaf, insert tail to leaf.
+            //node = bTree.h.e.l.l
             if (!node.hasOwnProperty(words[t])) {
-                let tail = {def: a[i].meaning[0]};
-                for (let j = words.length - 1; j > t; j--) {
-                    if (typeof words[j] === 'undefined') {
-                        continue;
-                    }
-                    eval('tail = {' + words[j] + ': tail}');
-                }
+                let tail = buildTail(words, {def: a[i].meaning[0]}, t);
                 eval(leaf + '=' + JSON.stringify(tail));
-                break;
+                break
+                //result: bTree.h.e.l.l.o = {def: 'Xin chao'}
             }
         }
     });
 
     callback(null, bTree);
 }
+
+/**
+ * Convert string for easy to build Tree
+ *
+ * @param  stringRaw
+ * @return string
+ */
+function handleString(stringRaw) {
+    return stringRaw
+        .replace(/\s\W\s/g, '_')
+        .replace(/\W*\d*/g, '')
+        .replace(' ', '_')
+        .toLowerCase();
+}
+
+/**
+ * Export convert string function
+ *
+ * @return handleString function
+ */
+exports.convertString = function (stringRaw) {
+    return handleString(stringRaw);
+};
+
+/**
+ * Build the tail object of word as Btree
+ *
+ * @param  words
+ * @param  tail
+ * @param  index
+ * @return object tail
+ */
+function buildTail(words, tail, index) {
+    for (let j = words.length - 1; j > index; j--) {
+        if (typeof words[j] === 'undefined') {
+            continue;
+        }
+        eval('tail = {' + words[j] + ': tail}');
+    }
+    return tail;
+}
+
 
 /**
  * Convert the xml file to json
@@ -91,5 +125,5 @@ function saveTree(bTree, callback) {
     //TODO: Extend if needed: save Btree to file here.
     //Export bTree on RAM to use.
     config.set('dict', bTree);
-    callback(null, 'Dictionary was built and export to RAM');
+    callback(null, 'Dictionary was built and export to memory');
 }

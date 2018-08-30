@@ -9,6 +9,7 @@ const express = require('express');
 let app = express();
 
 app.listen(process.env.PORT || 3000);
+// app.listen(3000);
 app.use(express.static(path.join(__dirname, 'client')));
 let parseForm = bodyParser.urlencoded({
     extended: false,
