@@ -21,6 +21,7 @@
   "dependencies": {
     "async": "^2.6.1",
     "body-parser": "^1.18.3",
+    "connect-timeout": "^1.9.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "fs": "0.0.1-security",

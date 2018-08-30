@@ -5,10 +5,12 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const config = require('./lib/ramcache');
 const express = require('express');
+const timeout = require('connect-timeout');
 
 let app = express();
 
 app.listen(process.env.PORT || 3000);
+app.use(timeout('500s'));
 // app.listen(3000);
 app.use(express.static(path.join(__dirname, 'client')));
 let parseForm = bodyParser.urlencoded({
