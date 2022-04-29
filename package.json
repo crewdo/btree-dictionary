@@ -19,7 +19,7 @@
   },
   "homepage": "https://gitlab.com/thudoduc/btree-dictionary#README",
   "dependencies": {
-    "async": "^2.6.1",
+    "async": "^2.6.4",
     "body-parser": "^1.18.3",
     "connect-timeout": "^1.9.0",
     "ejs": "^2.6.1",
